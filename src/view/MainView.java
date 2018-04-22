@@ -8,10 +8,13 @@ import java.awt.Toolkit;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JTable;
+import javax.swing.ListModel;
+import javax.swing.ListSelectionModel;
 
 public class MainView {
 	
@@ -19,18 +22,19 @@ public class MainView {
 	private final int HEIGHT = 600;
 	
 	private JFrame frame;
-	private JTable table;
+	private JTable table;	
 	
-	
-	public MainView(){
-		initialize();
+	public MainView(ListModel<Class> clm){
+		initialize(clm);
 	}
 	
-	private void initialize() {
+	private void initialize(ListModel<Class> lm) {
 		// Get the location for the center of the screen
 		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
 	    int x = (int) ((dimension.getWidth() - WIDTH) / 2);
 	    int y = (int) ((dimension.getHeight() - HEIGHT) / 2);
+	    
+	    ListModel<Class> classListModel = lm; 
 		
 		frame = new JFrame();
 		frame.setTitle("Grade Calculation Tool");
@@ -46,8 +50,17 @@ public class MainView {
 		JPanel window = new JPanel(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		
+		JList<Class> classList = new JList<>(classListModel);
+		classList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		classList.setBackground(Color.WHITE);
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 0;
+		window.add(classList, c);
+		
 		table = new JTable();
 		table.setFillsViewportHeight(true);
+		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 4;
 		c.gridy = 0;
 		window.add(table, c);
@@ -55,14 +68,14 @@ public class MainView {
 		
 		JButton button = new JButton("I am a button");
 		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridx = 0;
-		c.gridy = 0;
+		c.gridx = 2;
+		c.gridy = 2;
 		window.add(button, c);
 		
 		JButton button2 = new JButton("I am a button2");
 		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridx = 1;
-		c.gridy = 1;
+		c.gridx = 3;
+		c.gridy = 3;
 		window.add(button2, c);
 		
 		window.setBackground(Color.GRAY);
