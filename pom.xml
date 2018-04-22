@@ -15,4 +15,11 @@
       </plugin>
     </plugins>
   </build>
+  <dependencies>
+  	<dependency>
+  		<groupId>org.apache.derby</groupId>
+  		<artifactId>derby</artifactId>
+  		<version>10.14.1.0</version>
+  	</dependency>
+  </dependencies>
 </project>
