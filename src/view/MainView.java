@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Toolkit;
+import java.util.List;
+import java.util.Observable;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,7 +18,12 @@ import javax.swing.JTable;
 import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
 
-public class MainView {
+import data.Assignment;
+import data.Class;
+import model.ObservantTableModel;
+import service.ClassServiceInterface;
+
+public class MainView extends Observable{
 	
 	private final int WIDTH = 1000;
 	private final int HEIGHT = 600;
@@ -24,11 +31,11 @@ public class MainView {
 	private JFrame frame;
 	private JTable table;	
 	
-	public MainView(ListModel<Class> clm){
-		initialize(clm);
+	public MainView(ListModel<Class> flm, ObservantTableModel<List<Assignment>> sc, ClassServiceInterface csi) {
+		initialize(flm, sc, csi);
 	}
 	
-	private void initialize(ListModel<Class> lm) {
+	private void initialize(ListModel<Class> lm, ObservantTableModel<List<Assignment>> otm, final ClassServiceInterface csi) {
 		// Get the location for the center of the screen
 		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
 	    int x = (int) ((dimension.getWidth() - WIDTH) / 2);

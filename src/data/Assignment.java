@@ -2,6 +2,7 @@ package data;
 
 public class Assignment {
 	private String name;
+	private String className;
 	private String type;
 	private double pointsReceived;
 	private double possiblePoints;
@@ -13,6 +14,12 @@ public class Assignment {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public String getClassName() {
+		return className;
+	}
+	public void setClassName(String className) {
+		this.className = className;
 	}
 	public String getType() {
 		return type;
