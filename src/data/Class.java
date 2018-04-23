@@ -1,5 +1,6 @@
 package data;
 
+import java.util.List;
 import java.util.Map;
 
 public class Class {
@@ -8,6 +9,7 @@ public class Class {
 	private double grade;
 	private double gpa;
 	private Map<String, Double> assignmentTypes;
+	private List<Assignment> assignments;
 	
 	public String getName() {
 		return name;
@@ -38,5 +40,11 @@ public class Class {
 	}
 	public void setAssignmentTypes(Map<String, Double> assignmentTypes) {
 		this.assignmentTypes = assignmentTypes;
+	}
+	public List<Assignment> getAssignments() {
+		return assignments;
+	}
+	public void setAssignments(List<Assignment> assignments) {
+		this.assignments = assignments;
 	}
 }

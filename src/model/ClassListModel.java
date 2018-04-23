@@ -13,7 +13,7 @@ public class ClassListModel extends AbstractListModel<Class>{
 	@Override
 	public int getSize() {
 		// TODO Auto-generated method stub
-		return 10;
+		return 0;
 	}
 
 }
