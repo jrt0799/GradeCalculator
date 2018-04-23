@@ -2,9 +2,12 @@ package view;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.Observable;
 
@@ -13,6 +16,7 @@ import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.ListModel;
@@ -41,7 +45,11 @@ public class MainView extends Observable{
 	    int x = (int) ((dimension.getWidth() - WIDTH) / 2);
 	    int y = (int) ((dimension.getHeight() - HEIGHT) / 2);
 	    
-	    ListModel<Class> classListModel = lm; 
+		// Make a ClassListModel for the list
+		ListModel<Class> classListModel = lm;
+
+		// Make a SelectedAssignmentTableModel
+		ObservantTableModel<List<Assignment>> selectedAssignments = otm;
 		
 		frame = new JFrame();
 		frame.setTitle("Grade Calculation Tool");
@@ -53,6 +61,21 @@ public class MainView extends Observable{
 		
 		JMenu menu = new JMenu("Menu");
 		menuBar.add(menu);
+		
+		JMenuItem addClassBtn = new JMenuItem("Add New Class");
+		addClassBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				EventQueue.invokeLater(new Runnable() {
+					@Override
+					public void run() {
+						//AddClassPopUp popup = new AddClassPopUp(fsi);
+						//popup.setVisible(true);
+					}
+				});
+			}
+		});
+		menu.add(addClassBtn);
 		
 		JPanel window = new JPanel(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();

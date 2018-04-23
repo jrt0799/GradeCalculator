@@ -73,5 +73,30 @@ public class SQLClassDAO implements ClassDAO{
 		}
 		return true;
 	}
+	
+	public static void createClassesTable() throws SQLException {
+		Connection dbConnection = null;
+		Statement statement = null;
+		String createTableSQL = "CREATE TABLE CLASSES(" + "NAME_ID VARCHAR(255) NOT NULL, "
+				+ "INSTRUCTOR VARCHAR(255) NOT NULL, " + "GRADE FLOAT NOT NULL, " 
+				+ "GPA FLOAT NOT NULL)";
+		try {
+			dbConnection = ConnectionFactory.getInstance().getConnection();
+			statement = dbConnection.createStatement();
+			System.out.println(createTableSQL);
+			// execute the SQL statement
+			statement.execute(createTableSQL);
+			System.out.println("Table \"CLASSES\" is created!");
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			if (statement != null) {
+				statement.close();
+			}
+			if (dbConnection != null) {
+				dbConnection.close();
+			}
+		}
+	}
 
 }

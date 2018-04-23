@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import data.Assignment;
+import data.SQLClassDAO;
 import model.ClassListModel;
 import model.ObservantTableModel;
 import model.SelectedAssignmentsTableModel;
