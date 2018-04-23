@@ -11,6 +11,10 @@ public class Class {
 	private Map<String, Double> assignmentTypes;
 	private List<Assignment> assignments;
 	
+	public String toString() {
+		return name;
+	}
+	
 	public String getName() {
 		return name;
 	}

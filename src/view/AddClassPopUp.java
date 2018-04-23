@@ -29,7 +29,7 @@ public class AddClassPopUp extends JFrame{
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField;
+	private JTextField nameField;
 	private Class classInQuestion;
 
 	
@@ -86,9 +86,9 @@ public class AddClassPopUp extends JFrame{
 		JSeparator separator = new JSeparator();
 		panel.add(separator);
 		
-		textField = new JTextField();
-		panel.add(textField);
-		textField.setColumns(10);
+		nameField = new JTextField();
+		panel.add(nameField);
+		nameField.setColumns(10);
 		
 		Component verticalGlue = Box.createVerticalGlue();
 		verticalBox.add(verticalGlue);
@@ -123,8 +123,8 @@ public class AddClassPopUp extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				// update the name with the current text field value
-				classInQuestion.setName(textField.getText());
+				// update the name with the current text field values (default grade and GPA values are set)
+				classInQuestion.setName(nameField.getText());
 				classInQuestion.setInstructor("Cerny");
 				classInQuestion.setGrade(100.0);
 				classInQuestion.setGpa(4.0);

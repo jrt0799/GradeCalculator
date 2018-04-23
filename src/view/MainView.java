@@ -78,6 +78,7 @@ public class MainView extends Observable{
 		menu.add(addClassBtn);
 		
 		JPanel window = new JPanel(new GridBagLayout());
+		window.setBackground(Color.GRAY);
 		GridBagConstraints c = new GridBagConstraints();
 		
 		JList<Class> classList = new JList<>(classListModel);
@@ -86,7 +87,7 @@ public class MainView extends Observable{
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 0;
-		window.add(classList, c);
+		window.add(classList,c);
 		
 		table = new JTable();
 		table.setFillsViewportHeight(true);
@@ -95,20 +96,6 @@ public class MainView extends Observable{
 		c.gridy = 0;
 		window.add(table, c);
 		
-		
-		JButton button = new JButton("I am a button");
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridx = 2;
-		c.gridy = 2;
-		window.add(button, c);
-		
-		JButton button2 = new JButton("I am a button2");
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridx = 3;
-		c.gridy = 3;
-		window.add(button2, c);
-		
-		window.setBackground(Color.GRAY);
 		frame.setContentPane(window);
 	}
 	

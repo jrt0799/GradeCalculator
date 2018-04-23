@@ -28,6 +28,9 @@ public class SQLClassDAO implements ClassDAO{
 			while(results.next()) {
 				c = new Class();
 				c.setName(results.getString("name_id"));
+				c.setInstructor(results.getString("instructor"));
+				c.setGrade(results.getDouble("grade"));
+				c.setGpa(results.getDouble("gpa"));
 				classes.add(c);
 			}
 			
