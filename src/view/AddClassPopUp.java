@@ -30,6 +30,7 @@ public class AddClassPopUp extends JFrame{
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField nameField;
+	private JTextField instructorField;
 	private Class classInQuestion;
 
 	
@@ -80,8 +81,8 @@ public class AddClassPopUp extends JFrame{
 		JPanel panel = new JPanel();
 		verticalBox.add(panel);
 		
-		JLabel lblNewLabel = new JLabel("New Class' Name");
-		panel.add(lblNewLabel);
+		JLabel lblName = new JLabel("Name of New Class:");
+		panel.add(lblName);
 		
 		JSeparator separator = new JSeparator();
 		panel.add(separator);
@@ -89,6 +90,16 @@ public class AddClassPopUp extends JFrame{
 		nameField = new JTextField();
 		panel.add(nameField);
 		nameField.setColumns(10);
+		
+		JLabel lblInstructor = new JLabel("Class Instructor:");
+		panel.add(lblInstructor);
+		
+		JSeparator separator2 = new JSeparator();
+		panel.add(separator2);
+		
+		instructorField = new JTextField();
+		panel.add(instructorField);
+		instructorField.setColumns(10);
 		
 		Component verticalGlue = Box.createVerticalGlue();
 		verticalBox.add(verticalGlue);
@@ -125,7 +136,7 @@ public class AddClassPopUp extends JFrame{
 				
 				// update the name with the current text field values (default grade and GPA values are set)
 				classInQuestion.setName(nameField.getText());
-				classInQuestion.setInstructor("Cerny");
+				classInQuestion.setInstructor(instructorField.getText());
 				classInQuestion.setGrade(100.0);
 				classInQuestion.setGpa(4.0);
 				

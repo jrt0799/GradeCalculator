@@ -8,6 +8,8 @@ import java.awt.GridBagLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 import java.util.Observable;
 
@@ -34,6 +36,7 @@ public class MainView extends Observable{
 	private final int HEIGHT = 600;
 	
 	private JFrame frame;
+	private Class selectedClass;
 	JLabel classNameLabel;
 	JLabel classInstructorLabel;
 	JLabel classGradeLabel;
@@ -82,23 +85,24 @@ public class MainView extends Observable{
 		menu.add(addClassBtn);
 		
 		JPanel window = new JPanel(new GridBagLayout());
-		window.setBackground(Color.LIGHT_GRAY);
+		//window.setBackground(Color.LIGHT_GRAY);
 		GridBagConstraints c = new GridBagConstraints();
 		c.anchor = GridBagConstraints.NORTHWEST;
 		c.weightx = 1;
-		c.weighty = 0.01;
+		c.weighty = 0;
 		
-		final JLabel classListLabel = new JLabel("Classes", JLabel.LEFT);
-		classListLabel.setBackground(Color.WHITE);
+		final JLabel classListLabel = new JLabel("Classes", JLabel.CENTER);
+		//classListLabel.setBackground(Color.WHITE);
 		classListLabel.setOpaque(true);
 		classListLabel.setFont(classListLabel.getFont().deriveFont(20.0f));
+		classListLabel.setPreferredSize(new Dimension(300, 26));
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 0;
 		window.add(classListLabel, c);
 		
-		final JLabel cNameLabel = new JLabel("Class: ", JLabel.RIGHT);
-		cNameLabel.setBackground(Color.WHITE);
+		final JLabel cNameLabel = new JLabel("Class: ", JLabel.LEFT);
+		//cNameLabel.setBackground(Color.WHITE);
 		cNameLabel.setOpaque(true);
 		cNameLabel.setFont(cNameLabel.getFont().deriveFont(20.0f));
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -107,7 +111,7 @@ public class MainView extends Observable{
 		window.add(cNameLabel, c);
 		
 		classNameLabel = new JLabel("-", JLabel.LEFT);
-		classNameLabel.setBackground(Color.WHITE);
+		//classNameLabel.setBackground(Color.WHITE);
 		classNameLabel.setOpaque(true);
 		classNameLabel.setFont(classNameLabel.getFont().deriveFont(20.0f));
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -115,8 +119,8 @@ public class MainView extends Observable{
 		c.gridy = 0;
 		window.add(classNameLabel, c);
 		
-		final JLabel cInstructorLabel = new JLabel("Instructor: ", JLabel.RIGHT);
-		cInstructorLabel.setBackground(Color.WHITE);
+		final JLabel cInstructorLabel = new JLabel("Instructor: ", JLabel.LEFT);
+		//cInstructorLabel.setBackground(Color.WHITE);
 		cInstructorLabel.setOpaque(true);
 		cInstructorLabel.setFont(cInstructorLabel.getFont().deriveFont(20.0f));
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -125,7 +129,7 @@ public class MainView extends Observable{
 		window.add(cInstructorLabel, c);
 		
 		classInstructorLabel = new JLabel("-", JLabel.LEFT);
-		classInstructorLabel.setBackground(Color.WHITE);
+		//classInstructorLabel.setBackground(Color.WHITE);
 		classInstructorLabel.setOpaque(true);
 		classInstructorLabel.setFont(classInstructorLabel.getFont().deriveFont(20.0f));
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -133,8 +137,8 @@ public class MainView extends Observable{
 		c.gridy = 0;
 		window.add(classInstructorLabel, c);
 		
-		final JLabel cGradeLabel = new JLabel("Grade: ", JLabel.RIGHT);
-		cGradeLabel.setBackground(Color.WHITE);
+		final JLabel cGradeLabel = new JLabel("Grade: ", JLabel.LEFT);
+		//cGradeLabel.setBackground(Color.WHITE);
 		cGradeLabel.setOpaque(true);
 		cGradeLabel.setFont(cGradeLabel.getFont().deriveFont(20.0f));
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -143,7 +147,7 @@ public class MainView extends Observable{
 		window.add(cGradeLabel, c);
 		
 		classGradeLabel = new JLabel("-", JLabel.LEFT);
-		classGradeLabel.setBackground(Color.WHITE);
+		//classGradeLabel.setBackground(Color.WHITE);
 		classGradeLabel.setOpaque(true);
 		classGradeLabel.setFont(classGradeLabel.getFont().deriveFont(20.0f));
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -151,8 +155,8 @@ public class MainView extends Observable{
 		c.gridy = 0;
 		window.add(classGradeLabel, c);
 		
-		final JLabel cGPALabel = new JLabel("Instructor: ", JLabel.RIGHT);
-		cGPALabel.setBackground(Color.WHITE);
+		final JLabel cGPALabel = new JLabel("GPA: ", JLabel.LEFT);
+		//cGPALabel.setBackground(Color.WHITE);
 		cGPALabel.setOpaque(true);
 		cGPALabel.setFont(cGPALabel.getFont().deriveFont(20.0f));
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -161,7 +165,7 @@ public class MainView extends Observable{
 		window.add(cGPALabel, c);
 		
 		classGPALabel = new JLabel("-", JLabel.LEFT);
-		classGPALabel.setBackground(Color.WHITE);
+		//classGPALabel.setBackground(Color.WHITE);
 		classGPALabel.setOpaque(true);
 		classGPALabel.setFont(classGPALabel.getFont().deriveFont(20.0f));
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -169,18 +173,38 @@ public class MainView extends Observable{
 		c.gridy = 0;
 		window.add(classGPALabel, c);
 		
+		JButton addAssignmentButton = new JButton("Add New Assignment");
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 9;
+		c.gridy = 0;
+		window.add(addAssignmentButton,c);
+		
 		JList<Class> classList = new JList<>(classListModel);
 		classList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		classList.setBackground(Color.WHITE);
-		classList.setFont(classList.getFont().deriveFont(20.0f));
-		classList.setPreferredSize(new Dimension(300, HEIGHT));
-		c.fill = GridBagConstraints.VERTICAL;
+		classList.setFont(classList.getFont().deriveFont(16.0f));
+		classList.setPreferredSize(new Dimension(300,(int) dimension.getHeight()));
+		c.fill = GridBagConstraints.BOTH;
 		c.weighty = 1;
 		c.gridx = 0;
 		c.gridy = 1;
 		window.add(classList,c);
 		
-		
+		final MainView myMainView = this;
+		classList.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent evt) {
+				JList list = (JList) evt.getSource();
+				selectedClass = (Class) list.getSelectedValue();
+
+				// The selected class has changed. Notify anyone who cares.
+				myMainView.setChanged();
+				myMainView.notifyObservers(selectedClass);
+				classNameLabel.setText(selectedClass.getName());
+				classInstructorLabel.setText(selectedClass.getInstructor());
+				classGradeLabel.setText(Double.toString(selectedClass.getGrade()));
+				classGPALabel.setText(Double.toString(selectedClass.getGpa()));
+			}
+		});
 		
 		frame.setContentPane(window);
 	}
