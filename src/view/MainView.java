@@ -69,8 +69,8 @@ public class MainView extends Observable{
 				EventQueue.invokeLater(new Runnable() {
 					@Override
 					public void run() {
-						//AddClassPopUp popup = new AddClassPopUp(fsi);
-						//popup.setVisible(true);
+						AddClassPopUp popup = new AddClassPopUp(csi);
+						popup.setVisible(true);
 					}
 				});
 			}

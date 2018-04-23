@@ -27,9 +27,12 @@ public class SQLClassDAO implements ClassDAO{
 			Class c;
 			while(results.next()) {
 				c = new Class();
-				c.setName(results.getString("name"));
+				c.setName(results.getString("name_id"));
 				classes.add(c);
 			}
+			
+			statement.close();
+			sqlConnection.close();
 		} catch (SQLException e) {
 			// Should replace with log message
 			System.out.println("Data could not be retrieved");
@@ -40,13 +43,17 @@ public class SQLClassDAO implements ClassDAO{
 
 	@Override
 	public boolean saveClass(Class c) {
-		Connection sqlConnection;
 		try {
-			sqlConnection = ConnectionFactory.getInstance().getConnection();
-			PreparedStatement statement = sqlConnection.prepareStatement("INSERT INTO classes (name) VALUES (?)");
+			Connection sqlConnection = ConnectionFactory.getInstance().getConnection();
+			PreparedStatement statement = sqlConnection.prepareStatement("INSERT INTO classes VALUES (?, ?, ?, ?)");
 			statement.setString(1, c.getName());
+			statement.setString(2, c.getInstructor());
+			statement.setDouble(3, c.getGrade());
+			statement.setDouble(4, c.getGpa());
 			statement.executeUpdate();
-
+			
+			statement.close();
+			sqlConnection.close();
 		} catch (SQLException e) {
 			// Should replace with log message
 			System.out.println("Could not save the class");
@@ -58,13 +65,14 @@ public class SQLClassDAO implements ClassDAO{
 
 	@Override
 	public boolean deleteClass(Class c) {
-		Connection sqlConnection;
 		try {
-			sqlConnection = ConnectionFactory.getInstance().getConnection();
+			Connection sqlConnection = ConnectionFactory.getInstance().getConnection();
 			PreparedStatement statement = sqlConnection.prepareStatement("DELETE FROM classes WHERE name_id = ?");
 			statement.setString(1, c.getName());
 			statement.executeUpdate();
 
+			statement.close();
+			sqlConnection.close();
 		} catch (SQLException e) {
 			// Should replace with log message
 			System.out.println("Could not remove the class");
