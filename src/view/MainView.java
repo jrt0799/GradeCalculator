@@ -21,9 +21,11 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JTable;
 import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingUtilities;
 
 import data.Assignment;
 import data.Class;
@@ -174,6 +176,7 @@ public class MainView extends Observable{
 		window.add(classGPALabel, c);
 		
 		JButton addAssignmentButton = new JButton("Add New Assignment");
+		addAssignmentButton.setEnabled(false);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 9;
 		c.gridy = 0;
@@ -190,21 +193,32 @@ public class MainView extends Observable{
 		c.gridy = 1;
 		window.add(classList,c);
 		
+		JPopupMenu rightClickMenu = new JPopupMenu();
+		rightClickMenu.add(new JMenuItem("Remove Selected Class"));
+		
 		final MainView myMainView = this;
 		classList.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent evt) {
 				JList list = (JList) evt.getSource();
 				selectedClass = (Class) list.getSelectedValue();
-
-				// The selected class has changed. Notify anyone who cares.
-				myMainView.setChanged();
-				myMainView.notifyObservers(selectedClass);
-				classNameLabel.setText(selectedClass.getName());
-				classInstructorLabel.setText(selectedClass.getInstructor());
-				classGradeLabel.setText(Double.toString(selectedClass.getGrade()));
-				classGPALabel.setText(Double.toString(selectedClass.getGpa()));
+				if(!list.isSelectionEmpty() && list.locationToIndex(evt.getPoint()) == list.getSelectedIndex()) {
+					// The selected class has changed. Notify anyone who cares.
+					myMainView.setChanged();
+					myMainView.notifyObservers(selectedClass);
+					classNameLabel.setText(selectedClass.getName());
+					classInstructorLabel.setText(selectedClass.getInstructor());
+					classGradeLabel.setText(Double.toString(selectedClass.getGrade()));
+					classGPALabel.setText(Double.toString(selectedClass.getGpa()));
+					addAssignmentButton.setEnabled(true);
+					
+					if(SwingUtilities.isRightMouseButton(evt)) {
+						rightClickMenu.show(list, evt.getX(), evt.getY());
+					}
+				}
 			}
 		});
+		
+		
 		
 		frame.setContentPane(window);
 	}
