@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import connection.ConnectionFactory;
 
@@ -54,6 +55,17 @@ public class SQLClassDAO implements ClassDAO{
 			statement.setDouble(3, c.getGrade());
 			statement.setDouble(4, c.getGpa());
 			statement.executeUpdate();
+			
+			statement = sqlConnection.prepareStatement("INSERT INTO TYPES VALUES (?, ?, ?)");
+			
+			Map<String,Double> types = c.getAssignmentTypes();
+			for(String type : types.keySet()) {
+				System.out.println(type + " " + c.getName() + " " + types.get(type) + "%");
+				statement.setString(1, c.getName());
+				statement.setString(2, type);
+				statement.setDouble(3, types.get(type));
+				statement.executeUpdate();
+			}
 			
 			statement.close();
 			sqlConnection.close();
@@ -109,5 +121,54 @@ public class SQLClassDAO implements ClassDAO{
 			}
 		}
 	}
-
+	
+	public static void createTypeTable() throws SQLException {
+		Connection dbConnection = null;
+		Statement statement = null;
+		String createTableSQL = "CREATE TABLE TYPES(CLASS_ID VARCHAR(255) NOT NULL, " 
+				+ "TYPE VARCHAR(255), " + "PERCENTAGE FLOAT NOT NULL)";
+		try {
+			dbConnection = ConnectionFactory.getInstance().getConnection();
+			statement = dbConnection.createStatement();
+			System.out.println(createTableSQL);
+			// execute the SQL statement
+			statement.execute(createTableSQL);
+			System.out.println("Table \"TYPES\" is created!");
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			if (statement != null) {
+				statement.close();
+			}
+			if (dbConnection != null) {
+				dbConnection.close();
+			}
+		}
+	}
+	
+	public static void createAssignmentTable() throws SQLException {
+		Connection dbConnection = null;
+		Statement statement = null;
+		String createTableSQL = "CREATE TABLE ASSIGNMENTS(CLASS_ID VARCHAR(255) NOT NULL, " 
+				+ "NAME VARCHAR(255) NOT NULL, " + "TYPE VARCHAR(255), " 
+				+ "POINTS_RECEIVED FLOAT NOT NULL, " + "POSSIBLE_POINTS FLOAT NOT NULL, " 
+				+ "SCORE FLOAT NOT NULL, " + "INCLUDED SMALLINT NOT NULL)";
+		try {
+			dbConnection = ConnectionFactory.getInstance().getConnection();
+			statement = dbConnection.createStatement();
+			System.out.println(createTableSQL);
+			// execute the SQL statement
+			statement.execute(createTableSQL);
+			System.out.println("Table \"ASSIGNMENTS\" is created!");
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			if (statement != null) {
+				statement.close();
+			}
+			if (dbConnection != null) {
+				dbConnection.close();
+			}
+		}
+	}
 }

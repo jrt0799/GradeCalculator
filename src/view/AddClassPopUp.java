@@ -6,6 +6,8 @@ import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.Box;
 import javax.swing.JButton;
@@ -31,6 +33,7 @@ public class AddClassPopUp extends JFrame{
 	private JPanel contentPane;
 	private JTextField nameField;
 	private JTextField instructorField;
+	private JTextField typesField;
 	private Class classInQuestion;
 
 	
@@ -101,6 +104,16 @@ public class AddClassPopUp extends JFrame{
 		panel.add(instructorField);
 		instructorField.setColumns(10);
 		
+		JLabel lblTypes = new JLabel("Enter all types of assignments and their weights in the following format: (Type, Percentage);");
+		panel.add(lblTypes);
+		
+		JSeparator separator3 = new JSeparator();
+		panel.add(separator3);
+		
+		typesField = new JTextField();
+		panel.add(typesField);
+		typesField.setColumns(10);
+		
 		Component verticalGlue = Box.createVerticalGlue();
 		verticalBox.add(verticalGlue);
 		
@@ -135,8 +148,16 @@ public class AddClassPopUp extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				
 				// update the name with the current text field values (default grade and GPA values are set)
+				String[] typesArr = typesField.getText().split(";");
+				Map<String,Double> types = new HashMap<String,Double>();
+				for(String type : typesArr) {
+					type = type.substring(1, type.length()-1);
+					types.put(type.substring(0,type.indexOf(',')), Double.parseDouble(type.substring(type.indexOf(',') + 1)));
+				}
+				
 				classInQuestion.setName(nameField.getText());
 				classInQuestion.setInstructor(instructorField.getText());
+				classInQuestion.setAssignmentTypes(types);
 				classInQuestion.setGrade(100.0);
 				classInQuestion.setGpa(4.0);
 				

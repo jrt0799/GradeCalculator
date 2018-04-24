@@ -88,14 +88,12 @@ public class MainView extends Observable{
 		menu.add(addClassBtn);
 		
 		JPanel window = new JPanel(new GridBagLayout());
-		//window.setBackground(Color.LIGHT_GRAY);
 		GridBagConstraints c = new GridBagConstraints();
 		c.anchor = GridBagConstraints.NORTHWEST;
 		c.weightx = 1;
 		c.weighty = 0;
 		
 		final JLabel classListLabel = new JLabel("Classes", JLabel.CENTER);
-		//classListLabel.setBackground(Color.WHITE);
 		classListLabel.setOpaque(true);
 		classListLabel.setFont(classListLabel.getFont().deriveFont(20.0f));
 		classListLabel.setPreferredSize(new Dimension(300, 26));
@@ -105,7 +103,6 @@ public class MainView extends Observable{
 		window.add(classListLabel, c);
 		
 		final JLabel cNameLabel = new JLabel("Class: ", JLabel.LEFT);
-		//cNameLabel.setBackground(Color.WHITE);
 		cNameLabel.setOpaque(true);
 		cNameLabel.setFont(cNameLabel.getFont().deriveFont(20.0f));
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -114,7 +111,6 @@ public class MainView extends Observable{
 		window.add(cNameLabel, c);
 		
 		classNameLabel = new JLabel("-", JLabel.LEFT);
-		//classNameLabel.setBackground(Color.WHITE);
 		classNameLabel.setOpaque(true);
 		classNameLabel.setFont(classNameLabel.getFont().deriveFont(20.0f));
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -123,7 +119,6 @@ public class MainView extends Observable{
 		window.add(classNameLabel, c);
 		
 		final JLabel cInstructorLabel = new JLabel("Instructor: ", JLabel.LEFT);
-		//cInstructorLabel.setBackground(Color.WHITE);
 		cInstructorLabel.setOpaque(true);
 		cInstructorLabel.setFont(cInstructorLabel.getFont().deriveFont(20.0f));
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -132,7 +127,6 @@ public class MainView extends Observable{
 		window.add(cInstructorLabel, c);
 		
 		classInstructorLabel = new JLabel("-", JLabel.LEFT);
-		//classInstructorLabel.setBackground(Color.WHITE);
 		classInstructorLabel.setOpaque(true);
 		classInstructorLabel.setFont(classInstructorLabel.getFont().deriveFont(20.0f));
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -141,7 +135,6 @@ public class MainView extends Observable{
 		window.add(classInstructorLabel, c);
 		
 		final JLabel cGradeLabel = new JLabel("Grade: ", JLabel.LEFT);
-		//cGradeLabel.setBackground(Color.WHITE);
 		cGradeLabel.setOpaque(true);
 		cGradeLabel.setFont(cGradeLabel.getFont().deriveFont(20.0f));
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -150,7 +143,6 @@ public class MainView extends Observable{
 		window.add(cGradeLabel, c);
 		
 		classGradeLabel = new JLabel("-", JLabel.LEFT);
-		//classGradeLabel.setBackground(Color.WHITE);
 		classGradeLabel.setOpaque(true);
 		classGradeLabel.setFont(classGradeLabel.getFont().deriveFont(20.0f));
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -159,7 +151,6 @@ public class MainView extends Observable{
 		window.add(classGradeLabel, c);
 		
 		final JLabel cGPALabel = new JLabel("GPA: ", JLabel.LEFT);
-		//cGPALabel.setBackground(Color.WHITE);
 		cGPALabel.setOpaque(true);
 		cGPALabel.setFont(cGPALabel.getFont().deriveFont(20.0f));
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -168,7 +159,6 @@ public class MainView extends Observable{
 		window.add(cGPALabel, c);
 		
 		classGPALabel = new JLabel("-", JLabel.LEFT);
-		//classGPALabel.setBackground(Color.WHITE);
 		classGPALabel.setOpaque(true);
 		classGPALabel.setFont(classGPALabel.getFont().deriveFont(20.0f));
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -202,7 +192,6 @@ public class MainView extends Observable{
 				EventQueue.invokeLater(new Runnable() {
 					@Override
 					public void run() {
-						System.out.println("Item clicked");
 						ServiceResponse response = csi.deleteClass(selectedClass);
 					}
 				});
