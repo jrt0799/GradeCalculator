@@ -10,6 +10,10 @@ import data.Assignment;
 
 public class SelectedAssignmentsTableModel extends AbstractTableModel implements ObservantTableModel<List<Assignment>>{
 
+	
+	private static final long serialVersionUID = 1L;
+	private static final String[] assignmentFields = {"Class", "Name", "Type", "Points Received", "Possible Points", "Score", "Included"};
+	
 	@Override
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub

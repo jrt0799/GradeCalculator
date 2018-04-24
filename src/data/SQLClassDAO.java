@@ -85,6 +85,14 @@ public class SQLClassDAO implements ClassDAO{
 			PreparedStatement statement = sqlConnection.prepareStatement("DELETE FROM classes WHERE name_id = ?");
 			statement.setString(1, c.getName());
 			statement.executeUpdate();
+			
+			statement = sqlConnection.prepareStatement("DELETE FROM assignments WHERE class_id = ?");
+			statement.setString(1, c.getName());
+			statement.executeUpdate();
+			
+			statement = sqlConnection.prepareStatement("DELETE FROM types WHERE class_id = ?");
+			statement.setString(1, c.getName());
+			statement.executeUpdate();
 
 			statement.close();
 			sqlConnection.close();

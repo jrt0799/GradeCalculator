@@ -55,13 +55,26 @@ public class SQLAssignmentDAO implements AssignmentDAO{
 
 	@Override
 	public boolean updateAssignment(Assignment assignment) {
-		// TODO Auto-generated method stub
+		try {
+			Connection connection = ConnectionFactory.getInstance().getConnection();
+			PreparedStatement ps = connection.prepareStatement("UPDATE assignments SET type = ?, points_received = ?, possible_points = ?, score = ?, included = ? WHERE class_id = ? AND name = ?");
+			ps.setString(1, assignment.getType());
+			ps.setDouble(2, assignment.getPointsReceived());
+			ps.setDouble(3, assignment.getPossiblePoints());
+			ps.setDouble(4, assignment.getScore());
+			ps.setBoolean(5, assignment.isIncluded());
+			ps.setString(6, assignment.getClassName());
+			ps.setString(7, assignment.getName());
+			ps.executeUpdate();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return false;
 	}
 
 	@Override
 	public boolean deleteAssignment(Assignment assignment) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

@@ -40,10 +40,11 @@ public class MainView extends Observable{
 	
 	private JFrame frame;
 	private Class selectedClass;
-	JLabel classNameLabel;
-	JLabel classInstructorLabel;
-	JLabel classGradeLabel;
-	JLabel classGPALabel;
+	private JTable assignmentsTable;
+	private JLabel classNameLabel;
+	private JLabel classInstructorLabel;
+	private JLabel classGradeLabel;
+	private JLabel classGPALabel;
 	
 	public MainView(ListModel<Class> flm, ObservantTableModel<List<Assignment>> sc, ClassServiceInterface csi) {
 		initialize(flm, sc, csi);

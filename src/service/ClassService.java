@@ -45,7 +45,10 @@ public class ClassService extends Observable implements ClassServiceInterface {
 	@Override
 	public ServiceResponse saveClass(Class c) {
 		if (c.getName().equals("")) {
-			return new ServiceResponse(false, "Cannot Save class with no name!!");
+			return new ServiceResponse(false, "Cannot save class with no name!!");
+		}
+		if (c.getInstructor().equals("")) {
+			return new ServiceResponse(false, "Cannot save class with no instructor name!");
 		}
 
 		// Save the class
