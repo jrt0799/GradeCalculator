@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
@@ -7,17 +8,29 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
 
 import data.Assignment;
+import data.Class;
 
 public class SelectedAssignmentsTableModel extends AbstractTableModel implements ObservantTableModel<List<Assignment>>{
 
 	
 	private static final long serialVersionUID = 1L;
-	private static final String[] assignmentFields = {"Class", "Name", "Type", "Points Received", "Possible Points", "Score", "Included"};
+	private static final String[] assignmentFields = {"Class", "Assignment", "Type", "Points Received", "Possible Points", "Score", "Included"};
+	
+	private List<Assignment> selectedAssignments = new ArrayList<Assignment>();
+	
+	private void setSelectedAssignments(List<Assignment> selectedAssignments) {
+		this.selectedAssignments = selectedAssignments;
+		this.fireTableDataChanged();
+	}
 	
 	@Override
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
-		
+		if(arg != null) {
+			setSelectedAssignments(((Class)arg).getAssignments());
+		}
+		else {
+			setSelectedAssignments(new ArrayList<Assignment>());
+		}
 	}
 
 	@Override
@@ -27,32 +40,44 @@ public class SelectedAssignmentsTableModel extends AbstractTableModel implements
 	}
 
 	@Override
-	public Class<?> getColumnClass(int arg0) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public int getColumnCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		return assignmentFields.length;
 	}
 
 	@Override
-	public String getColumnName(int arg0) {
-		// TODO Auto-generated method stub
-		return null;
+	public String getColumnName(int col) {
+		return assignmentFields[col];
 	}
 
 	@Override
 	public int getRowCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		return selectedAssignments.size();
 	}
 
 	@Override
-	public Object getValueAt(int arg0, int arg1) {
-		// TODO Auto-generated method stub
+	public Object getValueAt(int rowIndex, int colIndex) {
+		String field = assignmentFields[colIndex];
+		if(field == "Class") {
+			return selectedAssignments.get(rowIndex).getClassName();
+		}
+		if(field == "Assignment") {
+			return selectedAssignments.get(rowIndex).getName();
+		}
+		if(field == "Type") {
+			return selectedAssignments.get(rowIndex).getType();
+		}
+		if(field == "Points Received") {
+			return selectedAssignments.get(rowIndex).getPointsReceived();
+		}
+		if(field == "Possible Points") {
+			return selectedAssignments.get(rowIndex).getPossiblePoints();
+		}
+		if(field == "Score") {
+			return selectedAssignments.get(rowIndex).getScore();
+		}
+		if(field == "Included") {
+			return selectedAssignments.get(rowIndex).isIncluded();
+		}
 		return null;
 	}
 
@@ -76,8 +101,7 @@ public class SelectedAssignmentsTableModel extends AbstractTableModel implements
 
 	@Override
 	public List<Assignment> getObservedValue() {
-		// TODO Auto-generated method stub
-		return null;
+		return new ArrayList<Assignment>(selectedAssignments);
 	}
 
 }

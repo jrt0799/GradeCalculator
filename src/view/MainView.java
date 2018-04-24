@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
@@ -22,10 +23,12 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
+import javax.swing.border.BevelBorder;
 
 import data.Assignment;
 import data.Class;
@@ -41,6 +44,8 @@ public class MainView extends Observable{
 	private JFrame frame;
 	private Class selectedClass;
 	private JTable assignmentsTable;
+	private List<Assignment> clickedAssignments;
+	
 	private JLabel classNameLabel;
 	private JLabel classInstructorLabel;
 	private JLabel classGradeLabel;
@@ -222,7 +227,32 @@ public class MainView extends Observable{
 			}
 		});
 		
+		assignmentsTable = new JTable(selectedAssignments);
+		//assignmentsTable.setFillsViewportHeight(true);
+		assignmentsTable.addMouseListener(new MouseAdapter() {
+			
+			@Override
+			public void mouseClicked(MouseEvent me) {
+				JTable table = (JTable) me.getSource();
+				ObservantTableModel<List<Assignment>> assignmentModel = (ObservantTableModel<List<Assignment>>)table.getModel();
+				int[] selected = table.getSelectedRows();
+				final List<Assignment> allSelectedAssignments = assignmentModel.getObservedValue();
+				clickedAssignments = new ArrayList<Assignment>();
+				for(Integer assignmentIndex: selected) {
+					clickedAssignments.add(allSelectedAssignments.get(assignmentIndex));
+				}
+			}
+		});
 		
+		JScrollPane scrollPane = new JScrollPane(assignmentsTable);
+		scrollPane.setViewportBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		
+		c.gridwidth = 8;
+		c.gridx = 1;
+		c.gridy = 1;
+		c.fill = GridBagConstraints.BOTH;
+		
+		window.add(scrollPane,c);
 		
 		frame.setContentPane(window);
 	}
