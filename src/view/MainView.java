@@ -31,6 +31,7 @@ import data.Assignment;
 import data.Class;
 import model.ObservantTableModel;
 import service.ClassServiceInterface;
+import service.ServiceResponse;
 
 public class MainView extends Observable{
 	
@@ -193,8 +194,21 @@ public class MainView extends Observable{
 		c.gridy = 1;
 		window.add(classList,c);
 		
-		JPopupMenu rightClickMenu = new JPopupMenu();
-		rightClickMenu.add(new JMenuItem("Remove Selected Class"));
+		JPopupMenu classRightClickMenu = new JPopupMenu();
+		JMenuItem removeSelectedClassMenuItem = new JMenuItem("Remove Selected Class");
+		removeSelectedClassMenuItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				EventQueue.invokeLater(new Runnable() {
+					@Override
+					public void run() {
+						System.out.println("Item clicked");
+						ServiceResponse response = csi.deleteClass(selectedClass);
+					}
+				});
+			}
+		});
+		classRightClickMenu.add(removeSelectedClassMenuItem);
 		
 		final MainView myMainView = this;
 		classList.addMouseListener(new MouseAdapter() {
@@ -212,7 +226,7 @@ public class MainView extends Observable{
 					addAssignmentButton.setEnabled(true);
 					
 					if(SwingUtilities.isRightMouseButton(evt)) {
-						rightClickMenu.show(list, evt.getX(), evt.getY());
+						classRightClickMenu.show(list, evt.getX(), evt.getY());
 					}
 				}
 			}
