@@ -51,8 +51,8 @@ public class MainView extends Observable{
 	private JLabel classGradeLabel;
 	private JLabel classGPALabel;
 	
-	public MainView(ListModel<Class> flm, ObservantTableModel<List<Assignment>> sc, ClassServiceInterface csi) {
-		initialize(flm, sc, csi);
+	public MainView(ListModel<Class> clm, ObservantTableModel<List<Assignment>> sc, ClassServiceInterface csi) {
+		initialize(clm, sc, csi);
 	}
 	
 	private void initialize(ListModel<Class> lm, ObservantTableModel<List<Assignment>> otm, final ClassServiceInterface csi) {
@@ -178,6 +178,16 @@ public class MainView extends Observable{
 		c.gridx = 9;
 		c.gridy = 0;
 		window.add(addAssignmentButton,c);
+		
+		addAssignmentButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				AddAssignmentPopup popup = new AddAssignmentPopup(selectedClass);
+				popup.setVisible(true);
+			}
+			
+		});
 		
 		JList<Class> classList = new JList<>(classListModel);
 		classList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

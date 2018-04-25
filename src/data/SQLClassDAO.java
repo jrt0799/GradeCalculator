@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,15 +24,38 @@ public class SQLClassDAO implements ClassDAO{
 		List<Class> classes = new ArrayList<Class>();
 		try {
 			Connection sqlConnection = ConnectionFactory.getInstance().getConnection();
-			Statement statement = sqlConnection.createStatement();
-			ResultSet results = statement.executeQuery("SELECT * FROM classes");
+			PreparedStatement statement = sqlConnection.prepareStatement("SELECT * FROM classes");
+			ResultSet results = statement.executeQuery();
 			Class c;
 			while(results.next()) {
 				c = new Class();
-				c.setName(results.getString("name_id"));
+				
+				String className = results.getString("name_id");
+				
+				Map<String, Double> types = new HashMap<String, Double>();
+				PreparedStatement typeStatement = sqlConnection.prepareStatement("SELECT * FROM types WHERE class_id = '" + className + "'");
+				ResultSet resultTypes = typeStatement.executeQuery();
+				
+				while(resultTypes.next()) {
+					types.put(resultTypes.getString("type"), resultTypes.getDouble("percentage"));
+				}
+				
+				List<Assignment> assignments = new ArrayList<Assignment>();
+				PreparedStatement assignmentStatement = sqlConnection.prepareStatement("SELECT * FROM assignments WHERE class_id = '" + className + "'");
+				ResultSet resultAssignments = assignmentStatement.executeQuery();
+				
+				while(resultAssignments.next()) {
+					Assignment assignment = new Assignment();
+					//setters here
+					assignments.add(assignment);
+				}
+				
+				c.setName(className);
 				c.setInstructor(results.getString("instructor"));
 				c.setGrade(results.getDouble("grade"));
 				c.setGpa(results.getDouble("gpa"));
+				c.setAssignmentTypes(types);
+				c.setAssignments(assignments);
 				classes.add(c);
 			}
 			

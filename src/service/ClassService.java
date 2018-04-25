@@ -36,10 +36,12 @@ public class ClassService extends Observable implements ClassServiceInterface {
 		classes = classDAO.getAllClasses();
 
 		// Use a AssignmentDAO to retrieve the class' assignments
-//		for (Class c : classes) {
-//			List<Assignment> classAssignments = assignmentDAO.findAssignmentsByClassName(c.getName());
-//			c.getAssignments().addAll(classAssignments);
-//		}
+		for (Class c : classes) {
+			List<Assignment> classAssignments = assignmentDAO.findAssignmentsByClassName(c.getName());
+			c.getAssignments().addAll(classAssignments);
+			
+			Map<String, Double> types = c.getAssignmentTypes();
+		}
 	}
 
 	@Override
@@ -55,9 +57,9 @@ public class ClassService extends Observable implements ClassServiceInterface {
 		if (classDAO.saveClass(c)) {
 
 			// Save any assignments that the class may now have
-//			for (Assignment assignment : c.getAssignments()) {
-//				assignmentDAO.saveAssignment(assignment);
-//			}
+			for (Assignment assignment : c.getAssignments()) {
+				assignmentDAO.saveAssignment(assignment);
+			}
 
 			// Update the list that service provides
 			updateClassList();
@@ -78,10 +80,6 @@ public class ClassService extends Observable implements ClassServiceInterface {
 	@Override
 	public ServiceResponse deleteClass(Class c) {
 		// Do JOPtionPane are you sure here
-		
-//		if (farmer.getCows().size() > 0) {
-//			return new ServiceResponse(false, "Cannot remove farmer who owns cows!!");
-//		}
 
 		// Delete the class
 		if (classDAO.deleteClass(c)) {
