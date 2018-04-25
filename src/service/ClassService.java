@@ -105,26 +105,26 @@ public class ClassService extends Observable implements ClassServiceInterface {
 		return new ServiceResponse(false, "Deletion Failed");
 	}
 
-	@Override
-	public ServiceResponse transferAssignmentsToClass(List<Assignment> assignments, Class c) {
-		for (Assignment assignment : assignments) {
-			if (assignment.getClassName() == c.getName()) {
-				return new ServiceResponse(false, "Cannot transfer assignment to current class of assignment!!");
-			}
-		}
-		for (Assignment assignment : assignments) {
-			assignment.setClassName(c.getName());
-			if(!assignmentDAO.updateAssignment(assignment)) {
-				return new ServiceResponse(false, "Transfer Failed");
-			}
-		}
-
-		// Update the list that service provides
-		updateClassList();
-
-		// Let everyone know that there is a new class
-		setChanged();
-
-		return new ServiceResponse(true, "Transfer Successful");
-	}
+//	@Override
+//	public ServiceResponse saveAssignment(List<Assignment> assignments, Class c) {
+//		for (Assignment assignment : assignments) {
+//			if (assignment.getClassName() == c.getName()) {
+//				return new ServiceResponse(false, "Cannot transfer assignment to current class of assignment!!");
+//			}
+//		}
+//		for (Assignment assignment : assignments) {
+//			assignment.setClassName(c.getName());
+//			if(!assignmentDAO.updateAssignment(assignment)) {
+//				return new ServiceResponse(false, "Transfer Failed");
+//			}
+//		}
+//
+//		// Update the list that service provides
+//		updateClassList();
+//
+//		// Let everyone know that there is a new class
+//		setChanged();
+//
+//		return new ServiceResponse(true, "Transfer Successful");
+//	}
 }
