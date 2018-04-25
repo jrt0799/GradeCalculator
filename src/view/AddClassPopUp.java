@@ -6,6 +6,7 @@ import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,6 +21,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.SoftBevelBorder;
 
+import data.Assignment;
 import data.Class;
 import service.ClassService;
 import service.ClassServiceInterface;
@@ -142,6 +144,7 @@ public class AddClassPopUp extends JFrame{
 				classInQuestion.setAssignmentTypes(types);
 				classInQuestion.setGrade(100.0);
 				classInQuestion.setGpa(4.0);
+				classInQuestion.setAssignments(new ArrayList<Assignment>());
 				
 				// save the new farmer
 				ServiceResponse response = csi.saveClass(classInQuestion);
