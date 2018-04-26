@@ -99,7 +99,22 @@ public class SQLAssignmentDAO implements AssignmentDAO{
 
 	@Override
 	public boolean deleteAssignment(Assignment assignment) {
-		return false;
+		try {
+			Connection sqlConnection = ConnectionFactory.getInstance().getConnection();
+			PreparedStatement statement = sqlConnection.prepareStatement("DELETE FROM assignments WHERE class_id = ? AND name = ?");
+			statement.setString(1, assignment.getClassName());
+			statement.setString(2, assignment.getName());
+			statement.executeUpdate();
+
+			statement.close();
+			sqlConnection.close();
+		} catch (SQLException e) {
+			// Should replace with log message
+			System.out.println("Could not remove the assignment");
+			e.printStackTrace();
+			return false;
+		}
+		return true;
 	}
 
 }

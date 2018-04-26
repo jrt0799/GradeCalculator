@@ -1,0 +1,253 @@
+\documentclass[12pt]{article}
+\usepackage{array}
+\usepackage{graphicx}
+
+\NeedsTeXFormat{LaTeX2e}
+\title{Software Engineering and Intro to Java\\Final Project\\Grade Calculation Tool}
+\author{Jack Titzman} 
+\date{}
+
+\begin{document}
+
+\maketitle 
+
+\newpage
+
+\section*{Outline}
+\begin{enumerate}
+	\item[1.] Title Page
+	\item[2.] Outline
+	\item[3.] Vision Statement
+	\item[4.] Roles
+	\item[5.] Gantt Diagram
+	\item[6.] Requirements
+	\item[7.] Business Rules
+	\item[8.] Use Cases
+	\item[11.] Use Case Diagrams
+	\item[12.] System Sequence Diagrams
+	\item[13.] System Operations
+	\item[14.] Domain Model
+	\item[15.] Operation Contracts
+	\item[16.] Sequence Diagrams
+	\item[17.] Design Model
+	\item[18.] Justification of GRASPs
+	\item[19.] Use of Design Patterns
+\end{enumerate}
+\newpage
+
+\section*{Vision Statement}
+
+Many professors at Baylor University do not post their students' grades on Canvas. This forces the students to have to calculate their own grades separately. The goal of this project is to allow students to keep track of their grades without the hassle of having to calculate them themselves.
+
+\newpage
+
+\section*{Roles}
+
+(Individual Project)
+
+Project Manager - Jack Titzman
+
+Developer - Jack Titzman
+
+Documenter - Jack Titzman
+
+Tester - Jack Titzman
+
+\newpage
+
+\section*{Gantt Diagram}
+
+%\includegraphics[width=\textwidth]{ganttDiagram}
+
+\newpage
+
+\section*{Requirements}
+
+\subsection*{Functional Requirements}
+
+\begin{itemize}
+	\item User can create a new class
+	\item User can remove a class
+	\item User can create assignments for each class
+	\item User can modify assignments for each class
+	\item User can remove assignments from each class
+	\item System will calculate grade for each class
+	\item System will calculate GPA for each class
+\end{itemize}
+
+\subsection*{Non-Functional Requirements}
+
+\begin{itemize}
+	\item User Interface should be easy to navigate
+	\item Grade calculations should be accurate
+\end{itemize}
+
+\newpage
+
+\section*{Business Rules}
+
+\begin{itemize}
+	\item A grade of 90.0 or higher is a 4.0 GPA. A grade of 80.0-89.9 is a 3.0 GPA. A grade of 70.0-79.9 is a 2.0 GPA. A grade of 60.0-69.9 is a 1.0 GPA. A grade below 60.0 is a GPA 0.0.
+	\item Assignments that are not included do not count towards the Class grade.
+	\item The percentages for each assignment type in a class should add up to 100 percent.
+\end{itemize}
+
+\newpage
+
+\section*{Use Cases}
+
+\noindent
+Use Case: Create a new class \\
+
+\noindent
+Scope: GradeCalculator application \\
+
+\noindent
+Actors: User \\
+
+\noindent
+Precondition: Application is running \\
+
+\noindent
+Postcondition: New class is added \\
+
+\noindent
+Main path:
+
+\begin{enumerate}
+	\item User starts application
+	\item User chooses add new class option
+	\item User fills out class details
+	\item User chooses save class
+	\item System creates class
+	\item System adds class to application
+\end{enumerate}
+
+\noindent
+Alternate paths:
+\begin{enumerate}
+	\item[1.] Application does not start
+	\item[3.] Class details filled out incorrectly
+	\item[3.1] Class creation fails
+	\item[4.] User chooses cancel
+	\item[4.1] Class creation fails 
+	\item[5.] System fails to create class
+	\item[5.1] Class creation fails
+	\item[6.] System fails to add class to application
+\end{enumerate}
+
+\newpage
+
+\noindent
+Use Case: Remove a class \\
+
+\noindent
+Scope: GradeCalculator application \\
+
+\noindent
+Actors: User \\
+
+\noindent
+Precondition: class exists in application \\
+
+\noindent
+Postcondition: class is removed \\
+
+\noindent
+Main path:
+
+\begin{enumerate}
+	\item User starts application
+	\item User selects a class to remove
+	\item User chooses remove class
+	\item System removes Class from application
+\end{enumerate}
+
+\noindent
+Alternate paths:
+\begin{enumerate}
+	\item[1.] Application does not start
+	\item[2.] No classes exist in the application
+	\item[4.] System fails to remove class
+\end{enumerate}
+
+\newpage
+
+\noindent
+Use Case: Create a new assignment for a class \\
+
+\noindent
+Scope: GradeCalculator Application \\
+
+\noindent
+Actors: User \\
+
+\noindent
+Precondition: Class for assignment exists \\
+
+\noindent
+Postcondition: New assignment is added to class \\
+
+\noindent
+Main path:
+
+\begin{enumerate}
+	\item User starts application
+	\item User selects a class
+	\item User chooses add new assignment
+	\item User enters assignment details
+	\item User chooses add assignment
+	\item System creates assignment
+	\item System adds assignment to application
+\end{enumerate}
+
+\noindent
+Alternate paths:
+\begin{enumerate}
+	\item[1.] Application does not start
+	\item[2.] No classes exist in the application
+	\item[4.] Assignment details filled out incorrectly
+	\item[4.1] Assignment creation fails
+	\item[5.] User chooses cancel
+	\item[5.1] Assignment creation fails
+	\item[6.] System fails to create assignment
+	\item[7.] System fails to add assignment to application
+\end{enumerate}
+
+\newpage
+
+\section*{Use Case Diagram}
+
+\newpage
+
+\section*{System Sequence Diagrams}
+
+\newpage
+
+\section*{System Operations}
+
+\newpage
+
+\section*{Domain Model}
+
+\newpage
+
+\section*{Operation Contracts}
+
+\newpage
+
+\section*{Sequence Diagrams}
+
+\newpage
+
+\section*{Design Model}
+
+\newpage
+
+\section*{Justification of GRASPs}
+
+\newpage
+
+\section*{Use of Design Patterns}
+
+\end{document}
