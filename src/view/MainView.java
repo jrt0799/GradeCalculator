@@ -239,7 +239,7 @@ public class MainView extends Observable{
 		});
 		
 		assignmentsTable = new JTable(selectedAssignments);
-		//assignmentsTable.setFillsViewportHeight(true);
+		assignmentsTable.setFillsViewportHeight(true);
 		assignmentsTable.addMouseListener(new MouseAdapter() {
 			
 			@Override

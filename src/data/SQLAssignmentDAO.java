@@ -87,6 +87,9 @@ public class SQLAssignmentDAO implements AssignmentDAO{
 			ps.setString(6, assignment.getClassName());
 			ps.setString(7, assignment.getName());
 			ps.executeUpdate();
+			
+			ps.close();
+			connection.close();
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();

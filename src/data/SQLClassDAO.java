@@ -44,8 +44,9 @@ public class SQLClassDAO implements ClassDAO{
 				PreparedStatement assignmentStatement = sqlConnection.prepareStatement("SELECT * FROM assignments WHERE class_id = '" + className + "'");
 				ResultSet resultAssignments = assignmentStatement.executeQuery();
 				
+				Assignment assignment;
 				while(resultAssignments.next()) {
-					Assignment assignment = new Assignment();
+					assignment = new Assignment();
 					assignment.setClassName(resultAssignments.getString("class_id"));
 					assignment.setName(resultAssignments.getString("name"));
 					assignment.setType(resultAssignments.getString("type"));
@@ -90,7 +91,6 @@ public class SQLClassDAO implements ClassDAO{
 			
 			Map<String,Double> types = c.getAssignmentTypes();
 			for(String type : types.keySet()) {
-				System.out.println(type + " " + c.getName() + " " + types.get(type) + "%");
 				statement.setString(1, c.getName());
 				statement.setString(2, type);
 				statement.setDouble(3, types.get(type));
