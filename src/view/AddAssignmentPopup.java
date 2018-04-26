@@ -97,6 +97,8 @@ public class AddAssignmentPopup extends JFrame{
 				// save the new assignment
 				ServiceResponse response = asi.saveAssignment(assignmentInQuestion, c);
 				
+				System.out.println(response.getMessage());
+				
 				if(response.isSuccess()) {
 					// dispose of the window
 					window.dispose();

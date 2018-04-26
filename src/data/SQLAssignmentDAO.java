@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import connection.ConnectionFactory;
 
@@ -50,7 +51,27 @@ public class SQLAssignmentDAO implements AssignmentDAO{
 
 	@Override
 	public boolean saveAssignment(Assignment assignment) {
-		return false;
+		try {
+			Connection sqlConnection = ConnectionFactory.getInstance().getConnection();
+			PreparedStatement statement = sqlConnection.prepareStatement("INSERT INTO assignments VALUES (?, ?, ?, ?, ?, ?, ?)");
+			statement.setString(1, assignment.getClassName());
+			statement.setString(2, assignment.getName());
+			statement.setString(3, assignment.getType());
+			statement.setDouble(4, assignment.getPointsReceived());
+			statement.setDouble(5, assignment.getPossiblePoints());
+			statement.setDouble(6, assignment.getScore());
+			statement.setBoolean(7, assignment.isIncluded());
+			statement.executeUpdate();
+			
+			statement.close();
+			sqlConnection.close();
+		} catch (SQLException e) {
+			// Should replace with log message
+			System.out.println("Could not save the assignment");
+			e.printStackTrace();
+			return false;
+		}
+		return true;
 	}
 
 	@Override

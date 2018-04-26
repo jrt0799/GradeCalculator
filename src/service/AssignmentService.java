@@ -14,14 +14,14 @@ public class AssignmentService extends Observable implements AssignmentServiceIn
 
 	private List<Assignment> assignments;
 	private AssignmentDAO assignmentDAO;
-	
+
 	public AssignmentService() {
 		assignmentDAO = new SQLAssignmentDAO();
 	}
-	
+
 	@Override
 	public List<Assignment> getAssignments(Class c) {
-		if(assignments == null) {
+		if (assignments == null) {
 			updateAssignmentList(c);
 		}
 		return assignments;
@@ -33,48 +33,55 @@ public class AssignmentService extends Observable implements AssignmentServiceIn
 
 	@Override
 	public ServiceResponse saveAssignment(Assignment assignment, Class c) {
-		if(assignment.getName().equals("")) {
+		if (assignment.getName().equals("")) {
 			return new ServiceResponse(false, "Cannot save assignment with no name!");
 		}
 		
-		// Update the list that service provides
-					updateAssignmentList(c);
+		// Save the assignment
+		if (assignmentDAO.saveAssignment(assignment)) {
+			// Update the list that service provides
+			updateAssignmentList(c);
 
-					// Let everyone know that there is a new class
-					setChanged();
+			// Let everyone know that there is a new assignment
+			setChanged();
 
-					Map<String, Integer> changes = new HashMap<>();
-					changes.put("new", assignments.size());
+			Map<String, Integer> changes = new HashMap<>();
+			changes.put("new", assignments.size());
 
-					notifyObservers(changes);
+			notifyObservers(changes);
+			
+			return new ServiceResponse(true, "Save successful");
+		}
+
 		
+
 		return new ServiceResponse(false, "Save Failed");
 	}
 
 	@Override
 	public ServiceResponse deleteAssignment(Assignment assignment, Class c) {
 		// Delete the class
-				if (assignmentDAO.deleteAssignment(assignment)) {
+		if (assignmentDAO.deleteAssignment(assignment)) {
 
-					// Find where the assignment was in the list
-					int positionRemoved = assignments.indexOf(assignment);
+			// Find where the assignment was in the list
+			int positionRemoved = assignments.indexOf(assignment);
 
-					// Update the list that service provides
-					updateAssignmentList(c);
+			// Update the list that service provides
+			updateAssignmentList(c);
 
-					// Let everyone know that there is a new assignment
-					setChanged();
+			// Let everyone know that there is a new assignment
+			setChanged();
 
-					Map<String, Integer> changes = new HashMap<>();
-					changes.put("remove", positionRemoved);
+			Map<String, Integer> changes = new HashMap<>();
+			changes.put("remove", positionRemoved);
 
-					notifyObservers(changes);
+			notifyObservers(changes);
 
-					// Return success message
-					return new ServiceResponse(true, "Deletion Successful");
-				}
+			// Return success message
+			return new ServiceResponse(true, "Deletion Successful");
+		}
 
-				return new ServiceResponse(false, "Deletion Failed");
+		return new ServiceResponse(false, "Deletion Failed");
 	}
 
 }

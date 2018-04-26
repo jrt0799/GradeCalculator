@@ -46,7 +46,13 @@ public class SQLClassDAO implements ClassDAO{
 				
 				while(resultAssignments.next()) {
 					Assignment assignment = new Assignment();
-					//setters here
+					assignment.setClassName(resultAssignments.getString("class_id"));
+					assignment.setName(resultAssignments.getString("name"));
+					assignment.setType(resultAssignments.getString("type"));
+					assignment.setPointsReceived(resultAssignments.getDouble("points_received"));
+					assignment.setPossiblePoints(resultAssignments.getDouble("possible_points"));
+					assignment.setScore(resultAssignments.getDouble("score"));
+					assignment.setIncluded(resultAssignments.getBoolean("included"));
 					assignments.add(assignment);
 				}
 				
