@@ -3,6 +3,7 @@ package view;
 import data.Assignment;
 import data.Class;
 import service.AssignmentServiceInterface;
+import service.ClassServiceInterface;
 import service.ServiceResponse;
 
 import java.awt.GridLayout;
@@ -23,7 +24,7 @@ import javax.swing.JTextField;
 public class AddAssignmentPopup extends JFrame{
 	private Assignment assignmentInQuestion;
 	
-	public AddAssignmentPopup(Class c, final AssignmentServiceInterface asi) {
+	public AddAssignmentPopup(Class c, final AssignmentServiceInterface asi, final ClassServiceInterface csi) {
 		final AddAssignmentPopup window = this;
 		
 		//Make an assignment
@@ -100,6 +101,8 @@ public class AddAssignmentPopup extends JFrame{
 				System.out.println(response.getMessage());
 				
 				if(response.isSuccess()) {
+					ServiceResponse response2 = csi.updateClass(c);
+					
 					// dispose of the window
 					window.dispose();
 				}

@@ -184,8 +184,12 @@ public class MainView extends Observable{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				AddAssignmentPopup popup = new AddAssignmentPopup(selectedClass, asi);
+				AddAssignmentPopup popup = new AddAssignmentPopup(selectedClass, asi, csi);
 				popup.setVisible(true);
+				classNameLabel.setText(selectedClass.getName());
+				classInstructorLabel.setText(selectedClass.getInstructor());
+				classGradeLabel.setText(Double.toString(selectedClass.getGrade()));
+				classGPALabel.setText(Double.toString(selectedClass.getGpa()));
 			}
 			
 		});
@@ -223,6 +227,7 @@ public class MainView extends Observable{
 				selectedClass = (Class) list.getSelectedValue();
 				if(!list.isSelectionEmpty() && list.locationToIndex(evt.getPoint()) == list.getSelectedIndex()) {
 					// The selected class has changed. Notify anyone who cares.
+					ServiceResponse response = csi.updateClass(selectedClass);
 					myMainView.setChanged();
 					myMainView.notifyObservers(selectedClass);
 					classNameLabel.setText(selectedClass.getName());

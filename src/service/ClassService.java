@@ -61,6 +61,30 @@ public class ClassService extends Observable implements ClassServiceInterface {
 		}
 		return new ServiceResponse(false, "Save Failed");
 	}
+	
+	@Override
+	public ServiceResponse updateClass(Class c) {
+		// Update the class
+		if (classDAO.updateClass(c)) {
+
+			// Find where the class was in the list
+			int positionUpdated = classes.indexOf(c);
+			
+			// Update the list that service provides
+			updateClassList();
+
+			// Let everyone know that there is a new class
+			setChanged();
+
+			Map<String, Integer> changes = new HashMap<>();
+			changes.put("update", positionUpdated);
+
+			notifyObservers(changes);
+
+			return new ServiceResponse(true, "Update successful");
+		}
+		return new ServiceResponse(false, "Update Failed");
+	}
 
 	@Override
 	public ServiceResponse deleteClass(Class c) {

@@ -107,6 +107,67 @@ public class SQLClassDAO implements ClassDAO{
 		}
 		return true;
 	}
+	
+	@Override
+	public boolean updateClass(Class c) {
+		try {
+			
+			// Calculate grade
+			double grade = 0;
+			for(String type : c.getAssignmentTypes().keySet()) {
+				double allAssignmentsWithThisType = 0;
+				double numIncluded = 0;
+				for(Assignment a : c.getAssignments()) {
+					if(a.getType().equals(type) && a.isIncluded()) {
+						allAssignmentsWithThisType += a.getScore();
+						numIncluded++;
+					}
+				}
+				// get the average type grade
+				if(numIncluded > 0) {
+					allAssignmentsWithThisType /= numIncluded;
+				}
+				
+				// multiply type by its multiplier
+				allAssignmentsWithThisType *= c.getAssignmentTypes().get(type)/100;
+				
+				// add to overall grade
+				grade += allAssignmentsWithThisType;
+			}
+			
+			c.setGrade(grade);
+			
+			
+			// Update GPA
+			if(c.getGrade() >= 90.0) {
+				c.setGpa(4.0);
+			} else if (c.getGrade() < 90.0 && c.getGrade() >= 80.0) {
+				c.setGpa(3.0);
+			} else if (c.getGrade() < 80.0 && c.getGrade() >= 70.0) {
+				c.setGpa(2.0);
+			} else if (c.getGrade() < 70.0 && c.getGrade() >= 60.0) {
+				c.setGpa(1.0);
+			} else if (c.getGrade() < 60.0) {
+				c.setGpa(0.0);
+			}
+			
+			
+			Connection connection = ConnectionFactory.getInstance().getConnection();
+			PreparedStatement ps = connection.prepareStatement("UPDATE classes SET instructor = ?, grade = ?, gpa = ? WHERE name_id = ?");
+			ps.setString(1, c.getInstructor());
+			ps.setDouble(2, c.getGrade());
+			ps.setDouble(3, c.getGpa());
+			ps.setString(4, c.getName());
+			ps.executeUpdate();
+			
+			ps.close();
+			connection.close();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 
 	@Override
 	public boolean deleteClass(Class c) {

@@ -35,6 +35,9 @@ public class ClassListModel extends AbstractListModel<Class> implements Observer
 		if(changes.containsKey("new")) {
 			fireIntervalAdded(this, changes.get("new"), changes.get("new"));
 		}
+		if(changes.containsKey("update")) {
+			fireContentsChanged(this, changes.get("update"), changes.get("update"));
+		}
 		if(changes.containsKey("remove")) {
 			fireIntervalRemoved(this, changes.get("remove"), changes.get("remove"));
 		}
