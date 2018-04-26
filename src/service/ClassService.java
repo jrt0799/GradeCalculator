@@ -39,8 +39,6 @@ public class ClassService extends Observable implements ClassServiceInterface {
 		for (Class c : classes) {
 			List<Assignment> classAssignments = assignmentDAO.findAssignmentsByClassName(c.getName());
 			c.getAssignments().addAll(classAssignments);
-			
-			Map<String, Double> types = c.getAssignmentTypes();
 		}
 	}
 
@@ -79,7 +77,7 @@ public class ClassService extends Observable implements ClassServiceInterface {
 
 	@Override
 	public ServiceResponse deleteClass(Class c) {
-		// Do JOPtionPane are you sure here
+		// Do JOPtionPane are you sure here OR DONT
 
 		// Delete the class
 		if (classDAO.deleteClass(c)) {
@@ -104,27 +102,4 @@ public class ClassService extends Observable implements ClassServiceInterface {
 
 		return new ServiceResponse(false, "Deletion Failed");
 	}
-
-//	@Override
-//	public ServiceResponse saveAssignment(List<Assignment> assignments, Class c) {
-//		for (Assignment assignment : assignments) {
-//			if (assignment.getClassName() == c.getName()) {
-//				return new ServiceResponse(false, "Cannot transfer assignment to current class of assignment!!");
-//			}
-//		}
-//		for (Assignment assignment : assignments) {
-//			assignment.setClassName(c.getName());
-//			if(!assignmentDAO.updateAssignment(assignment)) {
-//				return new ServiceResponse(false, "Transfer Failed");
-//			}
-//		}
-//
-//		// Update the list that service provides
-//		updateClassList();
-//
-//		// Let everyone know that there is a new class
-//		setChanged();
-//
-//		return new ServiceResponse(true, "Transfer Successful");
-//	}
 }

@@ -33,6 +33,7 @@ import javax.swing.border.BevelBorder;
 import data.Assignment;
 import data.Class;
 import model.ObservantTableModel;
+import service.AssignmentServiceInterface;
 import service.ClassServiceInterface;
 import service.ServiceResponse;
 
@@ -51,11 +52,11 @@ public class MainView extends Observable{
 	private JLabel classGradeLabel;
 	private JLabel classGPALabel;
 	
-	public MainView(ListModel<Class> clm, ObservantTableModel<List<Assignment>> sc, ClassServiceInterface csi) {
-		initialize(clm, sc, csi);
+	public MainView(ListModel<Class> clm, ObservantTableModel<List<Assignment>> sc, ClassServiceInterface csi, AssignmentServiceInterface asi) {
+		initialize(clm, sc, csi, asi);
 	}
 	
-	private void initialize(ListModel<Class> lm, ObservantTableModel<List<Assignment>> otm, final ClassServiceInterface csi) {
+	private void initialize(ListModel<Class> lm, ObservantTableModel<List<Assignment>> otm, final ClassServiceInterface csi, final AssignmentServiceInterface asi) {
 		// Get the location for the center of the screen
 		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
 	    int x = (int) ((dimension.getWidth() - WIDTH) / 2);
@@ -183,7 +184,7 @@ public class MainView extends Observable{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				AddAssignmentPopup popup = new AddAssignmentPopup(selectedClass);
+				AddAssignmentPopup popup = new AddAssignmentPopup(selectedClass, asi);
 				popup.setVisible(true);
 			}
 			

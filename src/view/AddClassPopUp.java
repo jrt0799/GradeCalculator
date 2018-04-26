@@ -146,7 +146,7 @@ public class AddClassPopUp extends JFrame{
 				classInQuestion.setGpa(4.0);
 				classInQuestion.setAssignments(new ArrayList<Assignment>());
 				
-				// save the new farmer
+				// save the new class
 				ServiceResponse response = csi.saveClass(classInQuestion);
 				
 				if(response.isSuccess()) {

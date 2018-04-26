@@ -2,6 +2,7 @@ package view;
 
 import data.Assignment;
 import data.Class;
+import service.AssignmentServiceInterface;
 import service.ServiceResponse;
 
 import java.awt.GridLayout;
@@ -22,7 +23,7 @@ import javax.swing.JTextField;
 public class AddAssignmentPopup extends JFrame{
 	private Assignment assignmentInQuestion;
 	
-	public AddAssignmentPopup(Class c) {
+	public AddAssignmentPopup(Class c, final AssignmentServiceInterface asi) {
 		final AddAssignmentPopup window = this;
 		
 		//Make an assignment
@@ -81,8 +82,8 @@ public class AddAssignmentPopup extends JFrame{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				double received = Double.parseDouble(pointsReceived.getText());
-				double possible = Double.parseDouble(possiblePoints.getText());
+				double received = Double.parseDouble(pointsReceived.getText().replaceAll(",", ""));
+				double possible = Double.parseDouble(possiblePoints.getText().replaceAll(",", ""));
 				double score = (received/possible)*100;
 				
 				assignmentInQuestion.setName(assignmentName.getText());
@@ -93,13 +94,13 @@ public class AddAssignmentPopup extends JFrame{
 				assignmentInQuestion.setScore(score);
 				assignmentInQuestion.setIncluded(included.isSelected());
 				
-				// save the new farmer
-				//ServiceResponse response = csi.saveClass(classInQuestion);
+				// save the new assignment
+				ServiceResponse response = asi.saveAssignment(assignmentInQuestion, c);
 				
-//				if(response.isSuccess()) {
-//					// dispose of the window
-//					window.dispose();
-//				}
+				if(response.isSuccess()) {
+					// dispose of the window
+					window.dispose();
+				}
 			}
 			
 		});
