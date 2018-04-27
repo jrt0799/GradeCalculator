@@ -21,6 +21,10 @@ class Tests {
 	private ClassDAO classDAO;
 	private AssignmentDAO assignmentDAO;
 	
+	/**
+	 * Clear all the classes from the database
+	 * @author titzman
+	 */
 	@BeforeEach
 	void clearData(){
 		classDAO = new SQLClassDAO();
@@ -31,6 +35,10 @@ class Tests {
 		}
 	}
 	
+	/**
+	 * test the classDAO saveClass method
+	 * @author titzman
+	 */
 	@Test
 	void testAddClass() {
 		classDAO = new SQLClassDAO();
@@ -54,6 +62,10 @@ class Tests {
 		assertTrue(classNames.contains(c.getName()));
 	}
 	
+	/**
+	 * test the classDAO deleteClass method
+	 * @author titzman
+	 */
 	@Test
 	void testDeleteClass() {
 		classDAO = new SQLClassDAO();
@@ -79,6 +91,10 @@ class Tests {
 		assertFalse(classNames.contains(c.getName()));
 	}
 	
+	/**
+	 * test the assignmentDAO saveAssignment method
+	 * @author titzman
+	 */
 	@Test
 	void testAddAssignment() {
 		classDAO = new SQLClassDAO();
@@ -112,6 +128,10 @@ class Tests {
 		assertTrue(assignmentNames.contains(a.getName()));
 	}
 	
+	/**
+	 * test the assignmentDAO deleteAssignment method
+	 * @author titzman
+	 */
 	@Test
 	void testDeleteAssignment() {
 		classDAO = new SQLClassDAO();
