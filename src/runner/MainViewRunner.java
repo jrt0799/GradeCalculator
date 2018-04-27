@@ -17,9 +17,18 @@ import view.MainView;
 
 public class MainViewRunner {
 	
+	/**
+	 * Runs the application
+	 * @author titzman
+	 * @param args Application arguments
+	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 
+			/**
+			 * Set up the application and run it
+			 * @author titzman
+			 */
 			@Override
 			public void run() {
 				ClassService cs = new ClassService();
