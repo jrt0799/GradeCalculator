@@ -9,6 +9,11 @@ public class ConnectionFactory {
 	
 	private static ConnectionFactory INSTANCE;
 	
+	/**
+	 * ConnectionFactory constructor
+	 * @author titzman
+	 * @return instance of ConnectionFactory
+	 */
 	public static ConnectionFactory getInstance() {
 		if(INSTANCE == null) {
 			INSTANCE = new ConnectionFactory();
@@ -16,6 +21,12 @@ public class ConnectionFactory {
 		return INSTANCE;
 	}
 	
+	/**
+	 * gets the connection to the SQL database
+	 * @author titzman
+	 * @return the database connection
+	 * @throws SQLException
+	 */
 	public Connection getConnection() throws SQLException {
 		return DriverManager.getConnection(JDBC_URL);
 	}
