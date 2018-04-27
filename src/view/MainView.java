@@ -52,10 +52,26 @@ public class MainView extends Observable{
 	private JLabel classGradeLabel;
 	private JLabel classGPALabel;
 	
+	/**
+	 * Construct a new MainView
+	 * @author titzman
+	 * @param clm the ListModel to use in the MainView
+	 * @param sc the ObservantTableModel to use in the MainView
+	 * @param csi The ClassServiceInterface to use in the MainView
+	 * @param asi The AssignmentServiceInterface to use in the MainView
+	 */
 	public MainView(ListModel<Class> clm, ObservantTableModel<List<Assignment>> sc, ClassServiceInterface csi, AssignmentServiceInterface asi) {
 		initialize(clm, sc, csi, asi);
 	}
 	
+	/**
+	 * Initializes all the components in the MainView
+	 * @author titzman
+	 * @param lm the ListModel to use in the MainView
+	 * @param otm the ObservantTableModel to use in the MainView
+	 * @param csi The ClassServiceInterface to use in the MainView
+	 * @param asi The AssignmentServiceInterface to use in the MainView
+	 */
 	private void initialize(ListModel<Class> lm, ObservantTableModel<List<Assignment>> otm, final ClassServiceInterface csi, final AssignmentServiceInterface asi) {
 		// Get the location for the center of the screen
 		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
@@ -273,6 +289,11 @@ public class MainView extends Observable{
 		frame.setContentPane(window);
 	}
 	
+	/**
+	 * Sets the visibility of the MainView
+	 * @author titzman
+	 * @param visibility true if visible, false if not
+	 */
 	public void setVisible(boolean visibility) {
 		frame.setVisible(visibility);
 	}

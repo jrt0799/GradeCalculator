@@ -1,6 +1,7 @@
 \documentclass[12pt]{article}
 \usepackage{array}
 \usepackage{graphicx}
+\usepackage{hyperref}
 
 \NeedsTeXFormat{LaTeX2e}
 \title{Software Engineering and Intro to Java\\Final Project\\Grade Calculation Tool}
@@ -11,11 +12,16 @@
 
 \maketitle 
 
+\vspace*{10cm}
+Link to Git Repository:
+
+\href{https://github.com/jrt0799/GradeCalculator}{https://github.com/jrt0799/GradeCalculator}
+
 \newpage
 
 \section*{Outline}
 \begin{enumerate}
-	\item[1.] Title Page
+	\item[1.] Title Page and Link to Git Repository
 	\item[2.] Outline
 	\item[3.] Vision Statement
 	\item[4.] Roles
@@ -29,9 +35,10 @@
 	\item[14.] Domain Model
 	\item[15.] Operation Contracts
 	\item[16.] Sequence Diagrams
-	\item[17.] Design Model
-	\item[18.] Justification of GRASPs
-	\item[19.] Use of Design Patterns
+	\item[19.] Design Model
+	\item[20.] Justification of GRASPs
+	\item[21.] Use of Design Patterns
+	\item[22.] Hours Spent and Logical Lines of Code
 \end{enumerate}
 \newpage
 
@@ -57,7 +64,7 @@ Tester - Jack Titzman
 
 \section*{Gantt Diagram}
 
-%\includegraphics[width=\textwidth]{ganttDiagram}
+\includegraphics[width=\textwidth]{GanttDiagram}
 
 \newpage
 
@@ -218,25 +225,148 @@ Alternate paths:
 
 \section*{Use Case Diagram}
 
+\includegraphics[width=\textwidth]{UseCaseDiagram}
+
 \newpage
 
 \section*{System Sequence Diagrams}
+
+\includegraphics[width=\textwidth]{SystemSequenceDiagram}
 
 \newpage
 
 \section*{System Operations}
 
+\noindent
+addClassToApplication(class) \\
+
+\noindent
+addAssignmentToApplication(assignment)  \\
+
+\noindent
+classData(class) \\
+
+\noindent
+removeClass(class) \\
+
+\noindent
+removeAssignment(assignment) \\
+
 \newpage
 
 \section*{Domain Model}
+
+\includegraphics[width=\textwidth]{DomainModel}
 
 \newpage
 
 \section*{Operation Contracts}
 
+\noindent
+Operation: addClassToApplication(class)
+
+\noindent
+Cross References: Create a new class
+
+\noindent
+Preconditions:
+
+There is a class to add to the application
+
+\noindent
+Postconditions:
+
+The class has been added to the application \\
+
+\noindent
+Operation: addAssignmentToApplication(class)
+
+\noindent
+Cross References: Create a new assignment
+
+\noindent
+Preconditions:
+
+There is an assignment to add to the application
+
+\noindent
+Postconditions:
+
+The assignment has been added to the application \\ 
+
+\noindent
+Operation: classData(class)
+
+\noindent
+Cross References: Create a new class, Remove a class
+
+\noindent
+Preconditions:
+
+There is a class in the application
+
+\noindent
+Postconditions:
+
+The user will have the selected class' data \\
+
+\noindent
+Operation: removeClass(class)
+
+\noindent
+Cross References: Remove a class
+
+\noindent
+Preconditions:
+
+There is a class to remove from the application
+
+\noindent
+Postconditions:
+
+The class has been removed from the application \\
+
+\noindent
+Operation: removeAssignment(assignment)
+
+\noindent
+Cross References: Remove an assignment
+
+\noindent
+Preconditions:
+
+There is an assignment to remove from the application
+
+\noindent
+Postconditions:
+
+The assignment has been removed from the application \\
+
 \newpage
 
 \section*{Sequence Diagrams}
+
+\noindent
+Use Case: Create a new class
+
+\noindent
+\includegraphics[width=\textwidth]{SequenceDiagram1} \\
+
+\newpage
+
+\noindent
+Use Case: Create a new assignment
+
+\noindent
+\includegraphics[width=\textwidth]{SequenceDiagram2} \\
+
+\newpage
+
+\noindent
+Use Case: Remove a class
+
+\noindent
+\includegraphics[width=\textwidth]{SequenceDiagram3} \\
 
 \newpage
 
@@ -246,8 +376,52 @@ Alternate paths:
 
 \section*{Justification of GRASPs}
 
+\noindent
+Any time a user interacts with a component of the user interface, the ServiceResponse is used. This is using the GRASP Controller because it handles the system events.
+
+\noindent
+The classes are designed such that an AssignmentService does not know about a ClassService and vice versa. This is using the GRASP Don't talk to strangers.
+
+\noindent
+The classes are broken up into several different parts such that one element is not strongly connected to, has knowledge of, or relies upon other elements. This is using the GRASP Low Coupling.
+
+\noindent
+The classes are broken up into several different parts such that each element has strongly related and focused responsibilities. This is using the GRASP High Cohesion.
+
+\noindent
+The previous two uses of GRASPs talked about Low Coupling and High Cohesion. This was achieved by making artificial objects (ClassDAO, AssignmentDAO). This is using the GRASP Pure fabrication.
+
 \newpage
 
 \section*{Use of Design Patterns}
+
+\noindent
+Factory - ConnectionFactory (creates new instances of database connection) \\
+
+\noindent
+Observer - Various objects: ClassListModel, AssignmentService, ClassService, MainView (notifiesObservers when changes are made)\\
+
+\noindent
+Command - ServiceResponse from different swing components \\
+
+\noindent
+Strategy - SQLAssignmentDAO, SQLClassDAO (wraps the save, update, delete, and accessor methods including calculating grade and gpa) \\
+
+\noindent
+Proxy - Construct UI elements as placeholders and update them later. \\
+
+\newpage
+
+\section*{Hours Spent}
+
+50 hours.
+
+\section*{Logical Lines of Code}
+
+1057
+
+\vspace{2cm}
+
+\includegraphics[width=\textwidth]{LogicalLinesOfCode}
 
 \end{document}
